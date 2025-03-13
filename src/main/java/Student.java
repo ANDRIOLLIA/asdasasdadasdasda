@@ -1,3 +1,4 @@
+import java.util.Iterator;
 import java.util.Objects;
 import java.util.TreeSet;
 
@@ -7,15 +8,33 @@ public class Student implements Comparable<Student>{
     private int age;
     private String email;
     private long phoneNumber;
-    private static <Student> setNames = new TreeSet<>();
+    private static TreeSet <Student> setStudents = new TreeSet<>();
 
     public Student(String name, int age, String email, long phoneNumber) {
         this.name = name;
         this.age = age;
         this.email = email;
         this.phoneNumber = phoneNumber;
+        setStudents.add(this);
     }
 
+
+    public static void removeStudent(long phoneNumberForRemoveStudent){
+        Iterator<Student> studentIterator = setStudents.iterator();
+        while(studentIterator.hasNext()){
+            Student currentStudent = studentIterator.next();
+            if(currentStudent.getPhoneNumber() == phoneNumberForRemoveStudent){
+                studentIterator.remove();
+                System.out.println("Студент " + currentStudent.getName() + " удален");
+            }
+        }
+    }
+
+    public static void printSetStudents(){
+        for (Student currentStudent : setStudents){
+            System.out.println(currentStudent);
+        }
+    }
     public String getName() {
         return name;
     }
